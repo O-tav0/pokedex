@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:pokedex/components/menu_lateral.dart';
 import 'package:pokedex/cores/cores.dart';
+import 'package:pokedex/models/pokemons_capturados.dart';
 import 'package:pokedex/models/regiao_selecionada.dart';
 
 void main() {
@@ -37,12 +38,12 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
 
-  final List<String> _capturadosRecentemente = [
-    'assets/images/turtwig.png',
-    'assets/images/glalie.png',
-    'assets/images/luxray.png',
-    'assets/images/rayquaza.png',
-    'assets/images/aggron.png',
+  final List<PokemonsCapturados> _capturadosRecentemente = [
+    PokemonsCapturados.turtwig(),
+    PokemonsCapturados.aggron(),
+    PokemonsCapturados.glalie(),
+    PokemonsCapturados.luxray(),
+    PokemonsCapturados.rayquaza() 
   ];
   
   RegiaoSelecionada _regiaoSelecionada = RegiaoSelecionada.paldea();
@@ -179,7 +180,7 @@ class _MyHomePageState extends State<MyHomePage> {
                        return 
                        Column(
                         children: [
-                          Text('No. 001'),
+                          Text('No.' + _capturadosRecentemente[index].numero.toString()),
                        Container(
                         margin: EdgeInsets.fromLTRB(10, 0, 10, 0),
                         width: 200,
@@ -197,7 +198,7 @@ class _MyHomePageState extends State<MyHomePage> {
                               borderRadius: BorderRadius.circular(8.0),
                               child:                              
                                 Image.asset(
-                                    _capturadosRecentemente[index],
+                                    _capturadosRecentemente[index].imagem,
                                     fit: BoxFit.fill,
                                     height: 150.0,
                                     width: 100.0,

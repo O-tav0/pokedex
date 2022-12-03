@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:pokedex/components/menu_lateral.dart';
 import 'package:pokedex/cores/cores.dart';
 
 void main() {
@@ -45,8 +46,12 @@ class _MyHomePageState extends State<MyHomePage> {
  
   @override
   Widget build(BuildContext context) {
+
+    final GlobalKey<ScaffoldState> _sccafold = GlobalKey(); // Create a key
     
     return Scaffold(
+      key: _sccafold,
+      drawer: MenuLateral(),
       appBar: AppBar(
         centerTitle: true,
         title: Row(
@@ -65,7 +70,7 @@ class _MyHomePageState extends State<MyHomePage> {
           ),
         leading: IconButton(
             icon: Icon(Icons.menu), 
-            onPressed: () => {}, 
+            onPressed: () => _sccafold.currentState!.openDrawer(), 
           ),
         
       ),

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:pokedex/components/menu_lateral.dart';
 import 'package:pokedex/cores/cores.dart';
+import 'package:pokedex/models/regiao_selecionada.dart';
 
 void main() {
   runApp(MyApp());
@@ -43,15 +44,23 @@ class _MyHomePageState extends State<MyHomePage> {
     'assets/images/rayquaza.png',
     'assets/images/aggron.png',
   ];
+  
+  RegiaoSelecionada _regiaoSelecionada = RegiaoSelecionada.paldea();
  
+  selecionarRegiao(RegiaoSelecionada regiao) {
+    setState(() {
+      _regiaoSelecionada = regiao;
+    });
+  }
+  
   @override
   Widget build(BuildContext context) {
 
-    final GlobalKey<ScaffoldState> _sccafold = GlobalKey(); // Create a key
+    final GlobalKey<ScaffoldState> _sccafold = GlobalKey();
     
     return Scaffold(
       key: _sccafold,
-      drawer: MenuLateral(),
+      drawer: MenuLateral(selecionarRegiao),
       appBar: AppBar(
         centerTitle: true,
         title: Row(
@@ -96,13 +105,13 @@ class _MyHomePageState extends State<MyHomePage> {
                     child: Column(
                     children: [
                       Text(
-                        'Paldea',
+                        _regiaoSelecionada.nome,
                         style: TextStyle(
                           fontSize: 16
                         ),
                       ),
                       Image.asset(
-                        'assets/images/paldea.png',
+                        _regiaoSelecionada.imagem,
                         fit: BoxFit.none,
                         height: 200,
                         width: 180       

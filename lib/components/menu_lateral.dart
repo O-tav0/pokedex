@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
 import 'package:pokedex/Cores/cores.dart';
 import 'package:pokedex/models/regiao_selecionada.dart';
 
@@ -147,8 +146,6 @@ class MenuLateral extends StatelessWidget {
       _setarEstadoHomePage(_regiaoSelecionada);
       break;
     }
-    
-    //http.get(Uri.parse('https://pokeapi.co/api/v2/region/$nrRegiao/')).then((resposta) => print(resposta.body));
     Navigator.of(context).pop();
   }
 }

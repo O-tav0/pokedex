@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:pokedex/components/lista_pokemons_regiao.dart';
 import 'package:pokedex/components/menu_lateral.dart';
 import 'package:pokedex/cores/cores.dart';
 import 'package:pokedex/models/pokemons_capturados.dart';
@@ -46,12 +47,20 @@ class _MyHomePageState extends State<MyHomePage> {
     PokemonsCapturados.rayquaza() 
   ];
   
-  RegiaoSelecionada _regiaoSelecionada = RegiaoSelecionada.paldea();
+  RegiaoSelecionada _regiaoSelecionada = RegiaoSelecionada.kanto();
  
   selecionarRegiao(RegiaoSelecionada regiao) {
     setState(() {
       _regiaoSelecionada = regiao;
     });
+  }
+
+  _buscarPokemonsDaRegiao(BuildContext context) {
+      Navigator.of(context).push(MaterialPageRoute(builder: (_) {
+        return ListaPokemonsRegiao(_regiaoSelecionada);
+        },
+      )
+    );
   }
   
   @override
@@ -111,11 +120,14 @@ class _MyHomePageState extends State<MyHomePage> {
                           fontSize: 16
                         ),
                       ),
-                      Image.asset(
-                        _regiaoSelecionada.imagem,
-                        fit: BoxFit.none,
-                        height: 200,
-                        width: 180       
+                      InkWell(
+                        onTap: () => _buscarPokemonsDaRegiao(context),
+                        child: Image.asset(
+                          _regiaoSelecionada.imagem,
+                          fit: BoxFit.none,
+                          height: 200,
+                          width: 180       
+                        ),
                       ),
                     ],
                   ),

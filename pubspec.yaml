@@ -23,7 +23,9 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  http: ^0.13.3
+  http: ^0.12.0+1
+  pokeapi_dart: ^0.0.1+1
+  
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.

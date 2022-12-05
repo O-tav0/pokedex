@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:pokedex/Cores/cores.dart';
+import 'package:pokedex/components/detalhes_pokemon.dart';
 import 'package:pokedex/components/menu_lateral.dart';
 import 'package:pokedex/models/regiao_selecionada.dart';
 import 'package:pokeapi_dart/pokeapi_dart.dart';
@@ -32,6 +33,14 @@ class _ListaPokemonsRegiaoState extends State<ListaPokemonsRegiao> {
   Future<Pokedex>buscarPokemonsDaRegiao() {
     int nrRegiao = widget._regiaoSelecionada.numero;
     return PokeApi().pokedexes.get(id: nrRegiao);
+  }
+
+  _navegarDetalhesPokemon(BuildContext context, String nomePokemon) {
+      Navigator.of(context).push(MaterialPageRoute(builder: (_) {
+        return DetalhePokemon(nomePokemon);
+        },
+      )
+    );
   }
 
   @override
@@ -89,7 +98,7 @@ class _ListaPokemonsRegiaoState extends State<ListaPokemonsRegiao> {
                             child:
                             InkWell(
                               splashColor: Colors.redAccent[100],
-                              onTap: () => {},
+                              onTap: () => _navegarDetalhesPokemon(context, pokemonsDaRegiao[index].pokemonSpecies.name),
                               child: ListTile(
                                 shape: RoundedRectangleBorder(
                               side: BorderSide(
@@ -112,7 +121,7 @@ class _ListaPokemonsRegiaoState extends State<ListaPokemonsRegiao> {
             return Center(child: const CircularProgressIndicator());
           }
         },
-)
-      );
+      )
+    );
   }
 }

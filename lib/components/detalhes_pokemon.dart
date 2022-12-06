@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:pokeapi_dart/pokeapi_dart.dart';
 import 'package:pokedex/Cores/cores.dart';
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:pokedex/components/barra_status_pokemon.dart';
 import 'package:pokedex/components/carrossel_detalhe_pokemon.dart';
 
 class DetalhePokemon extends StatefulWidget {
@@ -175,11 +176,28 @@ class _DetalhePokemonState extends State<DetalhePokemon> {
                     )
                   ],
                 ),
-                CarroselDetalhePokemon(imagensPokemon),
+                Card(
+                  elevation: 5,
+                  child: Container(
+                    decoration: BoxDecoration(
+                      border: Border(
+                        top: BorderSide(
+                          width: 2,
+                          color: Cores.vermelhoPrincipal,
+                        ),
+                        bottom: BorderSide(
+                          width: 2,
+                          color: Cores.vermelhoPrincipal,
+                        )
+                      ),
+                    ),
+                    child: CarroselDetalhePokemon(imagensPokemon),
+                  ),
+                ),               
                 Row(
                   children: [
                     Padding(
-                      padding: const EdgeInsets.fromLTRB(30, 0, 150, 10),
+                      padding: const EdgeInsets.fromLTRB(30, 0, 150, 0),
                       child: Text(
                         "Peso: " + snapshot.data!.weight.toString() + " lbs",
                         style: TextStyle(
@@ -226,62 +244,22 @@ class _DetalhePokemonState extends State<DetalhePokemon> {
                           ),
                       ),
                   )).toList()
-                    
-                    // Padding(
-                    //   padding: const EdgeInsets.fromLTRB(30,0,2,0),
-                    //   child: SizedBox(
-                    //     width: 60,
-                    //     height: 35,
-                    //     child: Card(
-                    //       color: _trataTipoPokemon(snapshot.data!.types[0].type.name),
-                    //       elevation: 5,
-                    //       shape: RoundedRectangleBorder(
-                    //         side: BorderSide(
-                    //           color: Colors.black,
-                    //           width: 1,
-                    //         ),
-                    //         borderRadius: BorderRadius.circular(30.0)
-                    //       ),
-                    //       child: Center(
-                    //         child: 
-                    //           Text(
-                    //             snapshot.data!.types[0].type.name.toUpperCase(),
-                    //             style: TextStyle(
-                    //               fontSize: 10,
-                    //               color: _trataCorTipoPokemon(snapshot.data!.types[0].type.name),
-                    //             ),
-                    //           )
-                    //         )
-                    //     ),
-                    //   ),
-                    // ),
-                    // SizedBox(
-                    //     width: 60,
-                    //     height: 35,
-                    //     child: Card(
-                    //       color: _trataTipoPokemon(snapshot.data!.types[1].type.name),
-                    //       elevation: 5,
-                    //       shape: RoundedRectangleBorder(
-                    //         side: BorderSide(
-                    //           color: Colors.black,
-                    //           width: 1,
-                    //         ),
-                    //         borderRadius: BorderRadius.circular(30.0)
-                    //       ),
-                    //       child: Center(
-                    //         child: 
-                    //           Text(
-                    //             snapshot.data!.types[1].type.name.toUpperCase(),
-                    //             style: TextStyle(
-                    //               fontSize: 10,
-                    //               color: _trataCorTipoPokemon(snapshot.data!.types[1].type.name),
-                    //             ),
-                    //           )
-                    //         )
-                    //     ),
-                    //   )
-                  
-                )
+                ),
+                Column(
+                  children: [
+                    Text('Status Base'),
+                    Container(
+                      padding: EdgeInsets.fromLTRB(30, 20, 0, 10),
+                      child: Padding(
+                        padding: const EdgeInsets.fromLTRB(0, 0, 10, 0),
+                        child: Column(
+                          children: 
+                               snapshot.data!.stats.map((tipo) => BarraStatusPokemon(tipo)).toList()
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
               ]
             );
           } else {

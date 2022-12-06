@@ -21,11 +21,11 @@ class BarraStatusPokemon extends StatelessWidget {
       }
 
       else if(resultado > 0.19 && resultado < 0.30) {
-        cor = Colors.lightGreen;
+        cor = Colors.yellow.shade700;
       }
 
       else if(resultado > 0.29 && resultado < 0.50) {
-        cor = Colors.yellow.shade700;
+        cor = Colors.lightGreen;
       }
 
       else if(resultado > 0.49 && resultado < 0.70) {
@@ -43,7 +43,7 @@ class BarraStatusPokemon extends StatelessWidget {
       int valorMinStatus = status.baseStat;
       int valorMaximoStatus = 200;
 
-      double resultado = 270 * ((valorMinStatus * 100)/valorMaximoStatus)/100;
+      double resultado = 250 * ((valorMinStatus * 100)/valorMaximoStatus)/100;
       return resultado;
     }
 
@@ -86,7 +86,7 @@ class BarraStatusPokemon extends StatelessWidget {
                                 Stack(
                                   children: [
                                     SizedBox(
-                                      width: 270,
+                                      width: MediaQuery.of(context).size.width - 140,
                                       height: 20,
                                       child: Container(
                                         child: Card(

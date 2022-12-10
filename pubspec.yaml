@@ -26,7 +26,8 @@ dependencies:
   http: ^0.12.0+1
   pokeapi_dart: ^0.0.1+1
   carousel_slider: ^1.4.1
-  
+  # optionally, as transparency is not allowed on app store
+  # remove_alpha_ios: true  
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
@@ -35,7 +36,11 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
-
+  flutter_launcher_icons: "^0.9.0"  
+flutter_icons:
+  image_path: "assets/images/pokebola.png" 
+  android: true
+  ios: true
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
 

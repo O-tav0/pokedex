@@ -5,12 +5,14 @@ import 'package:pokedex/Cores/cores.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:pokedex/components/barra_status_pokemon.dart';
 import 'package:pokedex/components/carrossel_detalhe_pokemon.dart';
+import 'package:pokedex/components/slide_esquerda_animation.dart';
 
 class DetalhePokemon extends StatefulWidget {
 
   final String _nomePokemonSelecionado;
+  final List<PokemonEntry> _listaDePokemons;
 
-  DetalhePokemon(this._nomePokemonSelecionado);
+  DetalhePokemon(this._nomePokemonSelecionado, this._listaDePokemons);
 
   @override
   State<DetalhePokemon> createState() => _DetalhePokemonState();
@@ -21,6 +23,8 @@ class _DetalhePokemonState extends State<DetalhePokemon> {
   Widget build(BuildContext context) {
 
     String _nomePokemonSelecionado = widget._nomePokemonSelecionado;
+    List<PokemonEntry> _listaDePokemons = widget._listaDePokemons;
+
     final api = PokeApi(); 
 
     _retornarPaginaAnterior(BuildContext context) {
@@ -121,6 +125,29 @@ class _DetalhePokemonState extends State<DetalhePokemon> {
       return corCard;
     }
 
+    _selecionarProximoPokemon(BuildContext context) {
+      int indiceProximoPokemon = _listaDePokemons.indexWhere((element) => element.pokemonSpecies.name == _nomePokemonSelecionado) + 1;
+      PokemonEntry proximoPokemon = _listaDePokemons[indiceProximoPokemon];
+      
+      Navigator.of(context).pop();
+      Navigator.of(context).push(
+        CupertinoPageRoute(builder: (context) => DetalhePokemon(proximoPokemon.pokemonSpecies.name, _listaDePokemons)),
+      );
+  }
+
+    _selecionarPokemonAnterior(BuildContext context) {
+      int indicePokemonAnterior = _listaDePokemons.indexWhere((element) => element.pokemonSpecies.name == _nomePokemonSelecionado) - 1;
+      if(indicePokemonAnterior <= 0) {
+        Navigator.of(context).pop();
+      } else {
+        PokemonEntry proximoPokemon = _listaDePokemons[indicePokemonAnterior];
+        Navigator.of(context).pop();
+        Navigator.of(context).push(
+          SlideRightRoute(page: DetalhePokemon(proximoPokemon.pokemonSpecies.name, _listaDePokemons)),
+      );
+      }
+    }
+
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
@@ -147,11 +174,10 @@ class _DetalhePokemonState extends State<DetalhePokemon> {
         future: _buscarDetalhesDoPokemon(), // a Future<String> or null
         builder: (context, snapshot) {
           if(snapshot.hasData) {
+            
             List<String> imagensPokemon = [];
-            imagensPokemon.add(snapshot.data!.sprites.frontDefault);
-            imagensPokemon.add(snapshot.data!.sprites.backDefault);
-            imagensPokemon.add(snapshot.data!.sprites.frontShiny);
-            imagensPokemon.add(snapshot.data!.sprites.backShiny);
+            imagensPokemon.add(snapshot.data!.sprites.other.officialArtwork.frontDefault);
+            
 
             return Column(
               children: [
@@ -245,20 +271,65 @@ class _DetalhePokemonState extends State<DetalhePokemon> {
                       ),
                   )).toList()
                 ),
-                Column(
-                  children: [
-                    Text('Status Base'),
-                    Container(
-                      padding: EdgeInsets.fromLTRB(30, 20, 0, 10),
-                      child: Padding(
-                        padding: const EdgeInsets.fromLTRB(0, 0, 10, 0),
-                        child: Column(
-                          children: 
-                               snapshot.data!.stats.map((tipo) => BarraStatusPokemon(tipo)).toList()
+                Container(
+                  margin: EdgeInsets.fromLTRB(0, 40, 0, 0),
+                  child: Column(
+                    children: [
+                      Text('Status Base'),
+                      Container(
+                        padding: EdgeInsets.fromLTRB(30, 20, 0, 10),
+                        child: Padding(
+                          padding: const EdgeInsets.fromLTRB(0, 0, 10, 0),
+                          child: Column(
+                            children: 
+                                 snapshot.data!.stats.map((tipo) => BarraStatusPokemon(tipo)).toList()
+                          ),
                         ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
+                ),
+                Container(
+                  margin: EdgeInsets.fromLTRB(0, MediaQuery.of(context).size.width - 200, 0, 0),
+                  child: Row(   
+                    children: [
+                      Container(
+                        child: SizedBox(
+                          width:60,
+                          height: 50,
+                          child: Center(
+                            child: IconButton(
+                              splashRadius: 20,
+                              padding: EdgeInsets.zero,
+                              splashColor: Colors.white,
+                              iconSize: 40,
+                                icon: Icon(Icons.keyboard_arrow_left),
+                                color: Cores.vermelhoPrincipal,
+                                onPressed: () => _selecionarPokemonAnterior(context),
+                            ),
+                          ),
+                        ),
+                      ),
+                      Container(
+                        margin: EdgeInsets.fromLTRB(270, 0, 0, 0),
+                        child: SizedBox(
+                          width:60,
+                          height: 50,
+                          child: Center(
+                            child: IconButton(
+                              splashRadius: 20,
+                              padding: EdgeInsets.zero,
+                              splashColor: Colors.white,
+                              iconSize: 40,
+                                icon: Icon(Icons.keyboard_arrow_right),
+                                color: Cores.vermelhoPrincipal,
+                                onPressed:() => _selecionarProximoPokemon(context),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
               ]
             );

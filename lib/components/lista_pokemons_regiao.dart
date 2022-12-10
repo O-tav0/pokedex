@@ -35,9 +35,9 @@ class _ListaPokemonsRegiaoState extends State<ListaPokemonsRegiao> {
     return PokeApi().pokedexes.get(id: nrRegiao);
   }
 
-  _navegarDetalhesPokemon(BuildContext context, String nomePokemon) {
+  _navegarDetalhesPokemon(BuildContext context, String nomePokemonSelecionado, List<PokemonEntry> pokemonsDaRegiao) {
       Navigator.of(context).push(MaterialPageRoute(builder: (_) {
-        return DetalhePokemon(nomePokemon);
+        return DetalhePokemon(nomePokemonSelecionado, pokemonsDaRegiao);
         },
       )
     );
@@ -98,7 +98,7 @@ class _ListaPokemonsRegiaoState extends State<ListaPokemonsRegiao> {
                             child:
                             InkWell(
                               splashColor: Colors.redAccent[100],
-                              onTap: () => _navegarDetalhesPokemon(context, pokemonsDaRegiao[index].pokemonSpecies.name),
+                              onTap: () => _navegarDetalhesPokemon(context, pokemonsDaRegiao[index].pokemonSpecies.name, pokemonsDaRegiao),
                               child: ListTile(
                                 shape: RoundedRectangleBorder(
                               side: BorderSide(

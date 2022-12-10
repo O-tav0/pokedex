@@ -290,7 +290,7 @@ class _DetalhePokemonState extends State<DetalhePokemon> {
                   ),
                 ),
                 Container(
-                  margin: EdgeInsets.fromLTRB(0, MediaQuery.of(context).size.width - 200, 0, 0),
+                  margin: EdgeInsets.fromLTRB(0, MediaQuery.of(context).size.width - 270, 0, 0),
                   child: Row(   
                     children: [
                       Container(

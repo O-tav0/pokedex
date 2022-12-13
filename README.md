@@ -8,8 +8,8 @@ A aplicação faz uso da PokéAPI para disponibilizar e mostrar os dados na inte
 https://pokeapi.co <br/>
 https://pokeapi.co/docs/v2
 
-Para consumir a PokéAPI, é utilizado o projeto pokéApi-reactor: <br/>
-https://github.com/SirSkaro/pokeapi-reactor
+Para consumir a PokéAPI, é utilizada uma biblioteca do dart/flutter: <br/>
+https://pub.dev/packages/pokeapi_dart
 
 Os protótipos iniciais da aplicação são os abaixos:
 <br/><br/>
